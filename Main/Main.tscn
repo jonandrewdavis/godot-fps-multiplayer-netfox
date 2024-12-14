@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dku6uwxa8etgu"]
+
+[ext_resource type="PackedScene" uid="uid://dniyrkkdwf3cb" path="res://Example World/Objects/World/world.tscn" id="1_ckhfr"]
+[ext_resource type="PackedScene" uid="uid://badtpsxn5lago" path="res://shared/ui/network-popup.tscn" id="1_xd1cq"]
+[ext_resource type="Script" path="res://multiplayer-simple/scripts/player-spawner.gd" id="2_bp7c6"]
+[ext_resource type="PackedScene" uid="uid://oc13h3au02ro" path="res://Player_Controller/player_character.tscn" id="4_pmy1y"]
+
+[node name="Main" type="Node"]
+
+[node name="EnvironmentContainer" type="Node" parent="."]
+
+[node name="World" parent="EnvironmentContainer" instance=ExtResource("1_ckhfr")]
+
+[node name="PlayersContainer" type="Node" parent="."]
+
+[node name="Network" type="Node" parent="."]
+
+[node name="PlayerSpawner" type="Node" parent="Network" node_paths=PackedStringArray("spawn_root")]
+script = ExtResource("2_bp7c6")
+player_scene = ExtResource("4_pmy1y")
+spawn_root = NodePath("../../PlayersContainer")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Network"]
+spawn_path = NodePath("../../PlayersContainer")
+
+[node name="Network Popup" parent="Network" instance=ExtResource("1_xd1cq")]
+offset_top = -162.0
+offset_bottom = 162.0
+current_tab = 0
